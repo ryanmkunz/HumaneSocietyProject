@@ -193,12 +193,13 @@ namespace HumaneSociety
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room GetRoomId = db.Rooms.Where(r => r.AnimalId == animalId).Single();
+            return GetRoomId;
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+
         }
 
         // TODO: Adoption CRUD Operations
