@@ -194,10 +194,10 @@ namespace HumaneSociety
 
         internal static void UpdateEmployee(Employee employee)
         {
-            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.FirstName = employee.FirstName);
-            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.LastName = employee.LastName);
-            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.EmployeeNumber = employee.EmployeeNumber);
-            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.Email = employee.Email);
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single().FirstName = employee.FirstName;
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single().LastName = employee.LastName;
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single().EmployeeNumber = employee.EmployeeNumber;
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single().Email = employee.Email;
             db.SubmitChanges();
         }
 
