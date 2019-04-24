@@ -252,36 +252,36 @@ namespace HumaneSociety
         internal static List<Animal> SearchForAnimalByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
             List<Animal> newContainer = db.Animals.ToList();
-            
-            if (updates[1] != null)
+
+            if (!updates.Keys.Contains(1)) 
             {
                 newContainer.RemoveAll(a => a.Category.Name != updates[1]);                
             }
-            if (updates[2] != null)
+            if (!updates.Keys.Contains(2))
             {
                 newContainer.RemoveAll(a => a.Name == updates[2]);
             }
-            if (updates[3] != null)
+            if (!updates.Keys.Contains(3))
             {
                 newContainer.RemoveAll(a => a.Age == int.Parse(updates[3]));
             }
-            if (updates[4] != null)
+            if (!updates.Keys.Contains(4))
             {
                 newContainer.RemoveAll(a => a.Demeanor == updates[4]);
             }
-            if (updates[5] != null)
+            if (!updates.Keys.Contains(5))
             {
                 newContainer.RemoveAll(a => a.KidFriendly == bool.Parse(updates[5]));
             }
-            if (updates[6] != null)
+            if (!updates.Keys.Contains(6))
             {
                 newContainer.RemoveAll(a => a.PetFriendly == bool.Parse(updates[6]));
             }
-            if (updates[7] != null)
+            if (!updates.Keys.Contains(7))
             {
                 newContainer.RemoveAll(a => a.Weight == int.Parse(updates[7]));
             }
-            if (updates[8] != null)
+            if (!updates.Keys.Contains(8))
             {
                 newContainer.RemoveAll(a => a.AnimalId == int.Parse(updates[8]));
             }
