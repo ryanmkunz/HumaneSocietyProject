@@ -297,35 +297,45 @@ namespace HumaneSociety
         
         internal static Room GetRoom(int animalId)
         {
-            Room GetRoomId = db.Rooms.Where(r => r.AnimalId == animalId).Single();
-            return GetRoomId;
+            throw new NotImplementedException();
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
+
             int DietPlans = db.DietPlans.Where(d => d.Name == dietPlanName).Single().DietPlanId;
             return DietPlans;
+
         }
 
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            Adoption newAdoption = new Adoption();
+            newAdoption.ClientId = client.ClientId;
+            newAdoption.AnimalId = animal.AnimalId;
+            newAdoption.AdoptionFee = 75;
+            newAdoption.PaymentCollected = true;
+            db.Adoptions.InsertOnSubmit(newAdoption);
+            db.SubmitChanges();
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            return db.Adoptions.Where(a => a.ApprovalStatus == null);
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            throw new NotImplementedException();
+            db.Adoptions.Where(a => a.AnimalId == adoption.AnimalId).Single().ApprovalStatus = isAdopted.ToString();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            Adoption pendingAdoption = new Adoption();
+            pendingAdoption = db.Adoptions.Where(a => a.AnimalId == animalId).Where(c => c.ClientId == clientId).First();
+            db.Adoptions.DeleteOnSubmit(pendingAdoption);
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
