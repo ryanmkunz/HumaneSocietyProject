@@ -155,7 +155,50 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            throw new NotImplementedException();
+            Employee employeeInQuery = new Employee(); 
+            switch (crudOperation)
+            {
+                case "create":
+                    AddEmployee(employeeInQuery);
+                    break;
+                case "read":
+                    List<string> info = new List<string> { employee.FirstName, employee.LastName, employee.UserName, employee.Email };
+                    UserInterface.DisplayUserOptions(info);
+                    break;
+                case "update":
+                    UpdateEmployee(employee);
+                    break;
+                case "delete":
+                    db.Employees.DeleteOnSubmit(employee);
+                    db.SubmitChanges();
+                    break;
+                default:
+                    break;
+            }
+        }      
+        
+        //Employee CRUD Operations
+        internal static void AddEmployee(Employee employee)
+        {
+            Employee newEmployee = new Employee();
+            newEmployee.EmployeeId = employee.EmployeeId;
+            newEmployee.FirstName = employee.FirstName;
+            newEmployee.LastName = employee.LastName;
+            newEmployee.UserName = employee.UserName;
+            newEmployee.Password = employee.Password;
+            newEmployee.EmployeeNumber = employee.EmployeeNumber;
+            newEmployee.Email = employee.Email;
+            db.Employees.InsertOnSubmit(newEmployee);
+            db.SubmitChanges();
+        }
+
+        internal static void UpdateEmployee(Employee employee)
+        {
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.FirstName = employee.FirstName);
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.LastName = employee.LastName);
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.EmployeeNumber = employee.EmployeeNumber);
+            db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).ToList().ForEach(e => e.Email = employee.Email);
+            db.SubmitChanges();
         }
 
         // TODO: Animal CRUD Operations
@@ -171,7 +214,15 @@ namespace HumaneSociety
 
         internal static void UpdateAnimal(Animal animal, Dictionary<int, string> updates)
         {
-            throw new NotImplementedException();
+            //dictionary has values 1-8 for keys, and the string of the updated value
+            animal.Category.Name = updates[1];
+            animal.Name = updates[2];
+            animal.Age = int.Parse(updates[2]);
+            animal.Demeanor = updates[4];
+            animal.KidFriendly = bool.Parse(updates[5]);
+            animal.PetFriendly = bool.Parse(updates[6]);
+            animal.Weight = int.Parse(updates[7]);
+            animal.AnimalId = int.Parse(updates[8]);
         }
 
         internal static void RemoveAnimal(Animal animal)
