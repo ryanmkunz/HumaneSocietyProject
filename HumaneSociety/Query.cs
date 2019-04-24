@@ -261,7 +261,7 @@ namespace HumaneSociety
             {
                 animal.AnimalId = int.Parse(updates[8]);
             }
-            db.Animals.InsertOnSubmit(animal);
+            //db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
         }
 
