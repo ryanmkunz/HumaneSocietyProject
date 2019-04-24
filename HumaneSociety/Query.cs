@@ -259,31 +259,31 @@ namespace HumaneSociety
             }
             if (updates.Keys.Contains(2))
             {
-                newContainer.RemoveAll(a => a.Name == updates[2]);
+                newContainer.RemoveAll(a => a.Name != updates[2]);
             }
             if (updates.Keys.Contains(3))
             {
-                newContainer.RemoveAll(a => a.Age == int.Parse(updates[3]));
+                newContainer.RemoveAll(a => a.Age != int.Parse(updates[3]));
             }
             if (updates.Keys.Contains(4))
             {
-                newContainer.RemoveAll(a => a.Demeanor == updates[4]);
+                newContainer.RemoveAll(a => a.Demeanor != updates[4]);
             }
             if (updates.Keys.Contains(5))
             {
-                newContainer.RemoveAll(a => a.KidFriendly == bool.Parse(updates[5]));
+                newContainer.RemoveAll(a => a.KidFriendly != bool.Parse(updates[5]));
             }
             if (updates.Keys.Contains(6))
             {
-                newContainer.RemoveAll(a => a.PetFriendly == bool.Parse(updates[6]));
+                newContainer.RemoveAll(a => a.PetFriendly != bool.Parse(updates[6]));
             }
             if (updates.Keys.Contains(7))
             {
-                newContainer.RemoveAll(a => a.Weight == int.Parse(updates[7]));
+                newContainer.RemoveAll(a => a.Weight != int.Parse(updates[7]));
             }
             if (updates.Keys.Contains(8))
             {
-                newContainer.RemoveAll(a => a.AnimalId == int.Parse(updates[8]));
+                newContainer.RemoveAll(a => a.AnimalId != int.Parse(updates[8]));
             }
             return newContainer;
         }
