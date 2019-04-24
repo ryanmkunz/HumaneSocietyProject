@@ -204,12 +204,26 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            Animal newAnimal = new Animal();
+            newAnimal.AnimalId = animal.AnimalId;
+            newAnimal.Name = animal.Name;
+            newAnimal.Weight = animal.Weight;
+            newAnimal.Age = animal.Age;
+            newAnimal.Demeanor = animal.Demeanor;
+            newAnimal.KidFriendly = animal.KidFriendly;
+            newAnimal.PetFriendly = animal.PetFriendly;
+            newAnimal.Gender = animal.Gender;
+            newAnimal.AdoptionStatus = animal.AdoptionStatus;
+            newAnimal.CategoryId = animal.CategoryId;
+            newAnimal.DietPlanId = animal.DietPlanId;
+            newAnimal.EmployeeId = animal.EmployeeId;
+            db.Animals.InsertOnSubmit(newAnimal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            return db.Animals.Where(a => a.AnimalId == id).First();
         }       
 
         internal static void UpdateAnimal(Animal animal, Dictionary<int, string> updates)
@@ -223,17 +237,55 @@ namespace HumaneSociety
             animal.PetFriendly = bool.Parse(updates[6]);
             animal.Weight = int.Parse(updates[7]);
             animal.AnimalId = int.Parse(updates[8]);
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         // TODO: Animal Multi-Trait Search
-        internal static IQueryable<Animal> SearchForAnimalByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
+        // Got special permission from Nevin to change return type
+        internal static List<Animal> SearchForAnimalByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            List<Animal> newContainer = db.Animals.ToList();
+            
+            if (updates[1] != null)
+            {
+                newContainer.RemoveAll(a => a.Category.Name != updates[1]);                
+            }
+            if (updates[2] != null)
+            {
+                newContainer.RemoveAll(a => a.Name == updates[2]);
+            }
+            if (updates[3] != null)
+            {
+                newContainer.RemoveAll(a => a.Age == int.Parse(updates[3]));
+            }
+            if (updates[4] != null)
+            {
+                newContainer.RemoveAll(a => a.Demeanor == updates[4]);
+            }
+            if (updates[5] != null)
+            {
+                newContainer.RemoveAll(a => a.KidFriendly == bool.Parse(updates[5]));
+            }
+            if (updates[6] != null)
+            {
+                newContainer.RemoveAll(a => a.PetFriendly == bool.Parse(updates[6]));
+            }
+            if (updates[7] != null)
+            {
+                newContainer.RemoveAll(a => a.Weight == int.Parse(updates[7]));
+            }
+            if (updates[8] != null)
+            {
+                newContainer.RemoveAll(a => a.AnimalId == int.Parse(updates[8]));
+            }
+            return newContainer;
         }
 
         // TODO: Misc Animal Things
