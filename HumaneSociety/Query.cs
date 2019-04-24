@@ -229,14 +229,38 @@ namespace HumaneSociety
         internal static void UpdateAnimal(Animal animal, Dictionary<int, string> updates)
         {
             //dictionary has values 1-8 for keys, and the string of the updated value
-            animal.Category.Name = updates[1];
-            animal.Name = updates[2];
-            animal.Age = int.Parse(updates[2]);
-            animal.Demeanor = updates[4];
-            animal.KidFriendly = bool.Parse(updates[5]);
-            animal.PetFriendly = bool.Parse(updates[6]);
-            animal.Weight = int.Parse(updates[7]);
-            animal.AnimalId = int.Parse(updates[8]);
+            if (updates.Keys.Contains(1))
+            {
+                animal.Category.Name = updates[1];
+            }
+            if (updates.Keys.Contains(2))
+            {
+                animal.Name = updates[2];
+            }
+            if (updates.Keys.Contains(3))
+            {
+                animal.Age = int.Parse(updates[3]);
+            }
+            if (updates.Keys.Contains(4))
+            {
+                animal.Demeanor = updates[4];
+            }
+            if (updates.Keys.Contains(5))
+            {
+                animal.KidFriendly = bool.Parse(updates[5]);
+            }
+            if (updates.Keys.Contains(6))
+            {
+                animal.PetFriendly = bool.Parse(updates[6]);
+            }
+            if (updates.Keys.Contains(7))
+            {
+                animal.Weight = int.Parse(updates[7]);
+            }
+            if (updates.Keys.Contains(8))
+            {
+                animal.AnimalId = int.Parse(updates[8]);
+            }
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
         }
